@@ -1,0 +1,11 @@
+#spring.application.name=springjdbc
+#spring.application.name=postgresbd
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update  # Be careful with this in prod
