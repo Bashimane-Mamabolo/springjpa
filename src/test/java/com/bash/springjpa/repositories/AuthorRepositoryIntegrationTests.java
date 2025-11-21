@@ -55,4 +55,19 @@ public class AuthorRepositoryIntegrationTests {
         assertThat(result).hasSize(3);
         assertThat(result).containsExactly(author1, author2, author3);
     }
+
+    @Test
+    public void testThatAuthorCanBeUpdatedAndRetrieved(){
+        // Arrange
+        Author author = TestDataUtil.createTestAuthor();
+        // Act
+        author = authorRepository.save(author);
+        author.setAge(32);
+        author = authorRepository.save(author);
+        Optional<Author> optionalAuthor = authorRepository.findById(author.getId());
+        // Assert
+        assertThat(optionalAuthor).isPresent();
+        assertThat(optionalAuthor.get()).isEqualTo(author);
+        assertThat(optionalAuthor.get().getAge()).isEqualTo(32);
+    }
 }

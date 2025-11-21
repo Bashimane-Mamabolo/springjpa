@@ -58,4 +58,20 @@ public class BookRepositoryIntegrationTests {
         assertThat(result).hasSize(3);
         assertThat(result).containsExactly(book1, book2, book3);
     }
+
+    @Test
+    public void testThatBookCanBeUpdatedAndRetrieved(){
+        // Arrange
+        Author author = TestDataUtil.createTestAuthor();
+        Book book = TestDataUtil.createTestBook(author);
+        // Act
+        book = bookRepository.save(book);
+        book.setTitle("Updated Title");
+        book = bookRepository.save(book);
+        Optional<Book> result = bookRepository.findById(book.getIsbn());
+        // Assert
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(book);
+        assertThat(result.get().getTitle()).isEqualTo("Updated Title");
+    }
 }
