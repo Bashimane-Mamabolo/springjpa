@@ -74,4 +74,19 @@ public class BookRepositoryIntegrationTests {
         assertThat(result.get()).isEqualTo(book);
         assertThat(result.get().getTitle()).isEqualTo("Updated Title");
     }
+
+    @Test
+    public void testThatBookCanBeDeletedAndRetrieved(){
+        // Arrange
+        Author author = TestDataUtil.createTestAuthor();
+        Book book = TestDataUtil.createTestBook(author);
+        // Act
+        book = bookRepository.save(book);
+        bookRepository.deleteById(book.getIsbn());
+        Optional<Book> result = bookRepository.findById(book.getIsbn());
+        // Assert
+        assertThat(result).isEmpty();
+
+
+    }
 }

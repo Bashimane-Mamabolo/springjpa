@@ -70,4 +70,16 @@ public class AuthorRepositoryIntegrationTests {
         assertThat(optionalAuthor.get()).isEqualTo(author);
         assertThat(optionalAuthor.get().getAge()).isEqualTo(32);
     }
+
+    @Test
+    public void testThatAuthorCanBeDeletedAndRetrieved(){
+        // Arrange
+        Author author = TestDataUtil.createTestAuthor();
+        // Act
+        author = authorRepository.save(author);
+        authorRepository.deleteById(author.getId());
+        Optional<Author> optionalAuthor = authorRepository.findById(author.getId());
+        // Assert
+        assertThat(optionalAuthor).isEmpty();
+    }
 }
