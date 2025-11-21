@@ -82,4 +82,23 @@ public class AuthorRepositoryIntegrationTests {
         // Assert
         assertThat(optionalAuthor).isEmpty();
     }
+
+    // A more complex test, we're going to leverage SPRING JPA muscle
+    @Test
+    public void testThatGetAuthorsWithAgeLessThan() {
+        // Arrange
+        Author author = TestDataUtil.createTestAuthor();
+        Author author2 = TestDataUtil.createTestAuthorA();
+        Author author3 = TestDataUtil.createTestAuthorB();
+        // Act
+        author = authorRepository.save(author);
+        author2 = authorRepository.save(author2);
+        author3 = authorRepository.save(author3);
+        Iterable<Author> result = authorRepository.findAllByAgeLessThan(30);
+        // Assert
+        assertThat(result).isNotNull();
+        assertThat(result).hasSize(2);
+        assertThat(result).containsExactly(author2, author3);
+
+    }
 }

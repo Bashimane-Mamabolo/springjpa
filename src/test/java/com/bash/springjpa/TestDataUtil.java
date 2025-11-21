@@ -21,7 +21,7 @@ public final class TestDataUtil {
         return Author.builder()
 //                .id(null)
                 .name("Simon")
-                .age(31)
+                .age(21)
                 .build();
     }
 
@@ -29,7 +29,7 @@ public final class TestDataUtil {
         return Author.builder()
 //                .id(null)
                 .name("ByteBash")
-                .age(31)
+                .age(15)
                 .build();
     }
 
