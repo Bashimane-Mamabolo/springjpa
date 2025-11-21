@@ -1,4 +1,9 @@
 package com.bash.springjpa.repositories;
 
-public interface AuthorRepository {
+import com.bash.springjpa.domain.Author;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface AuthorRepository extends CrudRepository<Author,Long> {
 }
