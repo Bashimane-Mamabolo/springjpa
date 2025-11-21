@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,5 +36,23 @@ public class AuthorRepositoryIntegrationTests {
         // Assert
         assertThat(optionalAuthor).isPresent();
         assertThat(optionalAuthor.get()).isEqualTo(author);
+    }
+
+    @Test
+    public void testThatMultipleAuthorsCanBeCreatedAndRetrieved(){
+        // Arrange
+        Author author1 = TestDataUtil.createTestAuthor();
+        Author author2 = TestDataUtil.createTestAuthorA();
+        Author author3 = TestDataUtil.createTestAuthorB();
+        // Act
+        author1 = authorRepository.save(author1);
+        author2 = authorRepository.save(author2);
+        author3 = authorRepository.save(author3);
+
+        Iterable<Author> result = authorRepository.findAll();
+        // Assert
+        assertThat(result).isNotNull();
+        assertThat(result).hasSize(3);
+        assertThat(result).containsExactly(author1, author2, author3);
     }
 }

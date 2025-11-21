@@ -39,4 +39,23 @@ public class BookRepositoryIntegrationTests {
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(book);
     }
+
+    @Test
+    public void testThatMultipleAuthorsCanBeCreatedAndRetrieved(){
+        // Arrange
+        Author author = TestDataUtil.createTestAuthor();
+        Book book1 = TestDataUtil.createTestBook(author);
+        Book book2 = TestDataUtil.createTestBookA(author);
+        Book book3 = TestDataUtil.createTestBookB(author);
+        // Act
+        book1 = bookRepository.save(book1);
+        book2 = bookRepository.save(book2);
+        book3 = bookRepository.save(book3);
+
+        Iterable<Book> result = bookRepository.findAll();
+        // Assert
+        assertThat(result).isNotNull();
+        assertThat(result).hasSize(3);
+        assertThat(result).containsExactly(book1, book2, book3);
+    }
 }
